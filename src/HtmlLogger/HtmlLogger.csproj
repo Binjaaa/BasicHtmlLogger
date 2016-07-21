@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Contracts\IHtmlLogger.cs" />
     <Compile Include="Contracts\IScreenCapturer.cs" />
+    <Compile Include="DirectoryHelper.cs" />
     <Compile Include="Logger\HtmlLogger.cs" />
     <Compile Include="Logger\HtmlLoggerBase.cs" />
     <Compile Include="Model\LogCategory.cs" />
