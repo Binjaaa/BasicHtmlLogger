@@ -1,10 +1,10 @@
 ﻿namespace HtmlLogger
 {
+    using Contracts;
     using System;
-    using System.Runtime.InteropServices;
     using System.Drawing;
     using System.Drawing.Imaging;
-    using Contracts;
+    using System.Runtime.InteropServices;
 
     public sealed class ScreenCapturer : IScreenCapturer
     {
@@ -14,6 +14,7 @@
         public ScreenCapturer()
         {
         }
+
         /// <summary>
         /// Creates an Image object containing a screen shot of the entire desktop
         /// </summary>
@@ -60,7 +61,7 @@
             // restore selection
             GDI32.SelectObject(hdcDest, hOld);
 
-            // clean up 
+            // clean up
             GDI32.DeleteDC(hdcDest);
             User32.ReleaseDC(handle, hdcSrc);
 
@@ -107,15 +108,20 @@
             public static extern bool BitBlt(IntPtr hObject, int nXDest, int nYDest,
                 int nWidth, int nHeight, IntPtr hObjectSource,
                 int nXSrc, int nYSrc, int dwRop);
+
             [DllImport("gdi32.dll")]
             public static extern IntPtr CreateCompatibleBitmap(IntPtr hDC, int nWidth,
                 int nHeight);
+
             [DllImport("gdi32.dll")]
             public static extern IntPtr CreateCompatibleDC(IntPtr hDC);
+
             [DllImport("gdi32.dll")]
             public static extern bool DeleteDC(IntPtr hDC);
+
             [DllImport("gdi32.dll")]
             public static extern bool DeleteObject(IntPtr hObject);
+
             [DllImport("gdi32.dll")]
             public static extern IntPtr SelectObject(IntPtr hDC, IntPtr hObject);
         }
