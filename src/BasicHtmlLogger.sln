@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlLogger", "HtmlLogger\HtmlLogger.csproj", "{DE8BA4E2-CB8A-4887-AA7D-D597E9BCE8D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenManager", "ScreenManager\ScreenManager.csproj", "{D1DA6A52-73DC-4A8E-A10A-1D267F32495E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestConsole", "TestConsole\TestConsole.csproj", "{2A7DE9BF-6546-4806-9252-42E28B9D47F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{DE8BA4E2-CB8A-4887-AA7D-D597E9BCE8D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE8BA4E2-CB8A-4887-AA7D-D597E9BCE8D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE8BA4E2-CB8A-4887-AA7D-D597E9BCE8D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D1DA6A52-73DC-4A8E-A10A-1D267F32495E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D1DA6A52-73DC-4A8E-A10A-1D267F32495E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D1DA6A52-73DC-4A8E-A10A-1D267F32495E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D1DA6A52-73DC-4A8E-A10A-1D267F32495E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A7DE9BF-6546-4806-9252-42E28B9D47F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A7DE9BF-6546-4806-9252-42E28B9D47F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A7DE9BF-6546-4806-9252-42E28B9D47F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A7DE9BF-6546-4806-9252-42E28B9D47F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
