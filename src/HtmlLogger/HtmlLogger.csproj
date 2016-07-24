@@ -43,8 +43,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contracts\IHtmlLogger.cs" />
+    <Compile Include="Contracts\IIoHelper.cs" />
     <Compile Include="Contracts\IScreenCapturer.cs" />
-    <Compile Include="DirectoryHelper.cs" />
+    <Compile Include="IoHelper.cs" />
     <Compile Include="HtmlHelper\HtmlHelper.cs" />
     <Compile Include="HtmlHelper\IHtmlHelper.cs" />
     <Compile Include="Logger\HtmlLogger.cs" />
