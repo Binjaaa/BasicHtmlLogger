@@ -1,17 +1,18 @@
 ﻿namespace HtmlLogger.HtmlHelper
 {
-    using System;
-    using System.Drawing;
+    using HtmlAgilityPack;
 
     public interface IHtmlHelper
     {
         /// <summary>
         /// Path of the destination html file.
         /// </summary>
-        Uri Path { get; }
+        string TemplatePath { get; }
 
-        void AddMessageRow(string message);
-
-        void AddMessageRowWithImage(string message, Image image);
+        /// <summary>
+        /// Add new row to the table in the html document.
+        /// </summary>
+        /// <param name="message"></param>
+        void AddMessageRow(HtmlNode message);
     }
 }

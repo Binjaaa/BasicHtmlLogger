@@ -1,49 +1,49 @@
 ﻿namespace HtmlLogger.HtmlHelper
 {
+    using Contracts;
+    using HtmlAgilityPack;
     using System;
-    using System.Collections.Generic;
-    using System.Drawing;
     using System.IO;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using System.Web.UI;
+    using Utils;
 
     public sealed class HtmlHelper : IHtmlHelper
     {
-        public HtmlHelper(Uri savePath)
+        private static HtmlDocument _html = new HtmlDocument();
+        private readonly IIoHelper _ioHelper;
+
+        public HtmlHelper(IIoHelper ioHelper, string templateFullPath)
         {
-            if (savePath == null)
+            Guard.Against.Null(nameof(ioHelper), ioHelper);
+            Guard.Against.Null(nameof(templateFullPath), templateFullPath);
+
+            if (!File.Exists(templateFullPath))
             {
-                throw new ArgumentNullException(nameof(savePath));
+                throw new Exception($"The file at the following path is not existing: {templateFullPath}");
             }
 
-            this.Path = savePath;
+            this._ioHelper = ioHelper;
+            this.TemplatePath = templateFullPath;
+
+            this.InitHtmlDocument(templateFullPath);
         }
 
-        public Uri Path { get; }
+        public string TemplatePath { get; }
 
-        public void AddMessageRow(string message)
+        public void AddMessageRow(HtmlNode message)
         {
-            throw new NotImplementedException();
+            GetTableBodyElement().AppendChild(message);
+
+            _html.Save("mukodj");
         }
 
-        public void AddMessageRowWithImage(string message, Image image)
+        private HtmlNode GetTableBodyElement()
         {
-            throw new NotImplementedException();
+            return _html.DocumentNode.SelectSingleNode("//tbody");
         }
 
-        private void TryToInitHtmlFile(Uri savePath)
+        private void InitHtmlDocument(string templateFullPath)
         {
-            // Initialize StringWriter instance.
-            StringWriter stringWriter = new StringWriter();
-
-            var _words = new string[] { "a", "b", "c" };
-
-            // Put HtmlTextWriter in using block because it needs to call Dispose.
-            using (HtmlTextWriter writer = new HtmlTextWriter(stringWriter))
-            {
-            }
+            _html.Load(templateFullPath);
         }
     }
 }
