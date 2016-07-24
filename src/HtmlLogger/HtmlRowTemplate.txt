@@ -1,0 +1,6 @@
+﻿<tr class="{1}">
+<th scope="row">{0}</th>
+<td><p class="text-left">{2}</p></td>
+<td><span class="label label-danger">{1}</span></td>
+<td><a href = "screenshot/{3}" class = "thumbnail"><img src = "screenshot/{3}"></a></td>
+</tr>
