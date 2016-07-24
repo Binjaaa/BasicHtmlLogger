@@ -1,15 +1,12 @@
 ﻿using HtmlLogger;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 
 namespace TestConsole
 {
-    class Program
+    internal class Program
     {
         private static void CaptureScreen()
         {
@@ -27,13 +24,32 @@ namespace TestConsole
             sc.CaptureWindowToFile(sc.GetActiveWindowHandle(), "temp3.png", ImageFormat.Png);
         }
 
-        static void Main(string[] args)
+        public static string AssemblyDirectory
         {
-            Console.WriteLine("R U Ready?");
-            Console.ReadKey();
+            get
+            {
+                string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+                UriBuilder uri = new UriBuilder(codeBase);
+                string path = Uri.UnescapeDataString(uri.Path);
+                return Path.GetDirectoryName(path);
+            }
+        }
 
-            CaptureActualWindow();
-            Console.ReadKey();
+        private static void StartTheFun()
+        {
+            var templateFolderPath = AssemblyDirectory;
+            var subDirName = "Template";
+            var templateName = "report.html";
+
+            var fullTemplateFilePath = Path.Combine(templateFolderPath, subDirName, templateName);
+
+            HtmlLogger.Logger.HtmlLogger logger = new HtmlLogger.Logger.HtmlLogger(fullTemplateFilePath);
+            logger.LogInfo("elsoke", false);
+        }
+
+        private static void Main(string[] args)
+        {
+            StartTheFun();
         }
     }
 }
