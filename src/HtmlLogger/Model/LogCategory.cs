@@ -3,6 +3,7 @@
     public enum LogCategory
     {
         Info,
+        Warning,
         Error
     }
 }
