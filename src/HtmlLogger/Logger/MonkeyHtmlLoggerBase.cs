@@ -3,7 +3,7 @@
     using Contracts;
     using Model;
 
-    public abstract class HtmlLoggerBase : IHtmlLogger
+    public abstract class MonkeyHtmlLoggerBase : IHtmlLogger
     {
         protected abstract void Log(string message, bool isScreenShotNeeded, LogCategory category);
 

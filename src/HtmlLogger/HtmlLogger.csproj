@@ -53,8 +53,8 @@
     <Compile Include="IoHelper.cs" />
     <Compile Include="HtmlHelper\HtmlHelper.cs" />
     <Compile Include="HtmlHelper\IHtmlHelper.cs" />
-    <Compile Include="Logger\HtmlLogger.cs" />
-    <Compile Include="Logger\HtmlLoggerBase.cs" />
+    <Compile Include="Logger\MonkeyHtmlLogger.cs" />
+    <Compile Include="Logger\MonkeyHtmlLoggerBase.cs" />
     <Compile Include="Model\LogCategory.cs" />
     <Compile Include="MonkeyScreenCapturer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
