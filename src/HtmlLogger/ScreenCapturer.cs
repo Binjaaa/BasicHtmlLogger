@@ -6,7 +6,7 @@
     using System.Drawing.Imaging;
     using System.Runtime.InteropServices;
 
-    public sealed class ScreenCapturer : IScreenCapturer
+    internal sealed class ScreenCapturer : IScreenCapturer
     {
         /// <summary>
         /// Provides functions to capture the entire screen, or a particular window, and save it to a file.
