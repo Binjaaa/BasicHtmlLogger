@@ -1,11 +1,13 @@
-﻿using HtmlLogger;
-using System;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Reflection;
-
-namespace TestConsole
+﻿namespace TestConsole
 {
+    using HtmlLogger;
+    using System;
+    using System.Drawing.Imaging;
+    using System.IO;
+    using System.Reflection;
+
+    using HtmlLogger.Logger;
+
     internal class Program
     {
         private static void CaptureScreen()
@@ -43,8 +45,15 @@ namespace TestConsole
 
             var fullTemplateFilePath = Path.Combine(templateFolderPath, subDirName, templateName);
 
-            HtmlLogger.Logger.HtmlLogger logger = new HtmlLogger.Logger.HtmlLogger(fullTemplateFilePath);
-            logger.LogInfo("elsoke", false);
+            MonkeyHtmlLogger logger = new MonkeyHtmlLogger(fullTemplateFilePath);
+
+            logger.LogInfo("QA1", true);
+            logger.LogError("QA2", true);
+            logger.LogWarning("QA3", true);
+
+            logger.LogInfo("QA1NO", false);
+            logger.LogError("QA2NO", false);
+            logger.LogWarning("QA3NO", false);
         }
 
         private static void Main(string[] args)
