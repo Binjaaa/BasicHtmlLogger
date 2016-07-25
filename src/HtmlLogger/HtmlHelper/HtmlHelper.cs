@@ -8,7 +8,7 @@
 
     public sealed class HtmlHelper : IHtmlHelper
     {
-        private static HtmlDocument _html = new HtmlDocument();
+        private static readonly HtmlDocument _html = new HtmlDocument();
         private readonly IIoHelper _ioHelper;
 
         public HtmlHelper(IIoHelper ioHelper, string templateFullPath)
@@ -31,9 +31,9 @@
 
         public void AddMessageRow(HtmlNode message)
         {
-            GetTableBodyElement().AppendChild(message);
+            this.GetTableBodyElement().AppendChild(message);
 
-            _html.Save("mukodj");
+            _html.Save("MonkeyReport.html");
         }
 
         private HtmlNode GetTableBodyElement()
