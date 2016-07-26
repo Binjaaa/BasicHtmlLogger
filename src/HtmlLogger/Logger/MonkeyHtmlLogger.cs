@@ -1,8 +1,8 @@
 ﻿namespace HtmlLogger.Logger
 {
+    using Contracts;
     using HtmlAgilityPack;
     using HtmlHelper;
-    using HtmlLogger.Contracts;
     using Model;
     using System;
     using System.Collections.Generic;
@@ -18,17 +18,12 @@
 
         private const string HtmlRowTemplateFileName = "HtmlRowTemplate.txt";
 
-        private readonly Dictionary<LogCategory, string> _categoryMap = new Dictionary<LogCategory, string>()
-        {
-            { LogCategory.Danger,"Error" },
-            { LogCategory.Info,"Info" },
-            { LogCategory.Warning,"Warning"}
-        };
-
         private readonly IHtmlHelper _htmlHelper;
         private readonly IIoHelper _ioHelper;
         private readonly IMonkeyScreenCapturer _monkeyScreenCapturer;
         private readonly string _tamplatePath;
+
+        private int _rowNumber = 1;
 
         #endregion Fields
 
@@ -82,7 +77,9 @@
                 screenShotPath = this._monkeyScreenCapturer.CaptureScreenToFile();
             }
 
-            var filledHtmlText = string.Format(str, 0, category.ToString().ToLower(), message, screenShotPath, _categoryMap[category]);
+            var style = HtmlAttributeHelper.GetStyleByCategory(category);
+
+            var filledHtmlText = string.Format(str, this._rowNumber++, style.FirstRowClass, message, screenShotPath, style.SpanText, style.SpanClass);
             var newNode = HtmlNode.CreateNode(filledHtmlText);
 
             this._htmlHelper.AddMessageRow(newNode);
