@@ -11,29 +11,66 @@
         private static readonly HtmlDocument _html = new HtmlDocument();
         private readonly IIoHelper _ioHelper;
 
-        public HtmlHelper(IIoHelper ioHelper, string templateFullPath)
+        private string _templatePath;
+        private string _destinationPath;
+
+        private const string _templateName = "report.html";
+
+        public HtmlHelper(IIoHelper ioHelper, string templateFullPath, string destinationPath)
         {
             Guard.Against.Null(nameof(ioHelper), ioHelper);
-            Guard.Against.Null(nameof(templateFullPath), templateFullPath);
-
-            if (!File.Exists(templateFullPath))
-            {
-                throw new Exception($"The file at the following path is not existing: {templateFullPath}");
-            }
+            Guard.Against.NullOrEmpty(nameof(templateFullPath), templateFullPath);
+            Guard.Against.NullOrEmpty(nameof(destinationPath), destinationPath);
 
             this._ioHelper = ioHelper;
             this.TemplatePath = templateFullPath;
 
-            this.InitHtmlDocument(templateFullPath);
+            this._ioHelper.CreateDirectoryIfNotExists(destinationPath);
+            this.InitHtmlDocument(Path.Combine(templateFullPath, _templateName));
         }
 
-        public string TemplatePath { get; }
+        public string TemplatePath
+        {
+            get
+            {
+                return this._templatePath;
+            }
+            private set
+            {
+                if (!this._ioHelper.DirectoryExists(value))
+                {
+                    throw new ArgumentException($"The given {nameof(this.TemplatePath)} is not existing: {value}");
+                }
+
+                this._templatePath = value;
+            }
+        }
+
+        public string DestinationPath
+        {
+            get
+            {
+                return this._destinationPath;
+            }
+            private set
+            {
+                if (!this._ioHelper.DirectoryExists(value))
+                {
+                    throw new ArgumentException($"The given {nameof(this.DestinationPath)} is not existing: {value}");
+                }
+
+                this._destinationPath = value;
+            }
+        }
 
         public void AddMessageRow(HtmlNode message)
         {
             this.GetTableBodyElement().AppendChild(message);
 
-            _html.Save("MonkeyReport.html");
+            var reportName = $"MonkeyReport_{DateTime.Now.ToShortDateString()}.html";
+            var fullReportPath = Path.Combine();
+
+            _html.Save();
         }
 
         private HtmlNode GetTableBodyElement()

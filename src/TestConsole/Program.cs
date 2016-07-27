@@ -41,11 +41,11 @@
         {
             var templateFolderPath = AssemblyDirectory;
             var subDirName = "Template";
-            var templateName = "report.html";
 
-            var fullTemplateFilePath = Path.Combine(templateFolderPath, subDirName, templateName);
+            var fullTemplateFolderPath = Path.Combine(templateFolderPath, subDirName);
+            var fullDestinationFolderPath = Path.Combine(templateFolderPath, "Destination");
 
-            MonkeyHtmlLogger logger = new MonkeyHtmlLogger(fullTemplateFilePath);
+            MonkeyHtmlLogger logger = new MonkeyHtmlLogger(fullTemplateFolderPath, fullDestinationFolderPath);
 
             logger.LogInfo("QA1", true);
             logger.LogError("QA2", true);

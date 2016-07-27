@@ -18,34 +18,37 @@
 
         private const string HtmlRowTemplateFileName = "HtmlRowTemplate.txt";
 
+        private readonly string _destinationPath;
         private readonly IHtmlHelper _htmlHelper;
         private readonly IIoHelper _ioHelper;
         private readonly IMonkeyScreenCapturer _monkeyScreenCapturer;
-        private readonly string _tamplatePath;
-
+        private readonly string _templateFolderPath;
         private int _rowNumber = 1;
 
         #endregion Fields
 
         #region Constructors
 
-        public MonkeyHtmlLogger(string templatePath, IHtmlHelper htmlHelper = null, IMonkeyScreenCapturer monkeyScreenCapturer = null, IIoHelper ioHelper = null)
+        public MonkeyHtmlLogger(string templateFolderPath, string destinationPath, IHtmlHelper htmlHelper = null, IMonkeyScreenCapturer monkeyScreenCapturer = null, IIoHelper ioHelper = null)
         {
-            Guard.Against.Null(nameof(templatePath), templatePath);
+            Guard.Against.NullOrEmpty(nameof(templateFolderPath), templateFolderPath);
+            Guard.Against.NullOrEmpty(nameof(destinationPath), destinationPath);
 
-            htmlHelper = htmlHelper ?? new HtmlHelper(new IoHelper(), templatePath);
+            htmlHelper = htmlHelper ?? new HtmlHelper(new IoHelper(), templateFolderPath, destinationPath);
             monkeyScreenCapturer = monkeyScreenCapturer ?? new MonkeyScreenCapturer();
             ioHelper = ioHelper ?? new IoHelper();
 
-            if (!ioHelper.FileExists(templatePath))
-            {
-                throw new Exception($"{nameof(templatePath)} is not exists");
-            }
-
+            this._templateFolderPath = templateFolderPath;
+            this._destinationPath = destinationPath;
             this._htmlHelper = htmlHelper;
-            this._tamplatePath = templatePath;
             this._monkeyScreenCapturer = monkeyScreenCapturer;
             this._ioHelper = ioHelper;
+
+            if (!this._ioHelper.DirectoryExists(templateFolderPath))
+            {
+                throw new ArgumentException($"The given {nameof(templateFolderPath)} is not existing: {templateFolderPath}");
+            }
+            this._ioHelper.CreateDirectoryIfNotExists(this._destinationPath);
         }
 
         #endregion Constructors

@@ -5,9 +5,14 @@
     public interface IHtmlHelper
     {
         /// <summary>
-        /// Path of the destination html file.
+        /// Folder path of the template file
         /// </summary>
         string TemplatePath { get; }
+
+        /// <summary>
+        /// Destination folder path of the generated log file
+        /// </summary>
+        string DestinationPath { get; }
 
         /// <summary>
         /// Add new row to the table in the html document.
