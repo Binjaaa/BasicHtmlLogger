@@ -1,57 +1,54 @@
-$(document).ready(function(){
-	var ctx = $("#chartCanvas").get(0).getContext("2d");
+    var getError = function() {
+        var allError = document.getElementsByClassName('label-danger').length;
+        return allError;
+    };
+    var getWarning = function() {
+        var allWarning = document.getElementsByClassName("label-warning").length;
+        return allWarning;
+    };
+    var getInfo = function() {
+        var allInfo = document.getElementsByClassName("label-default").length;
+        return allInfo;
+    };
 
-	var data = [
-		{
-			value: 270,
-			color: "cornflowerblue",
-			highlight: "lightskyblue",
-			label: "JavaScript"
-		},
-		{
-			value: 50,
-			color: "lightgreen",
-			highlight: "yellowgreen",
-			label: "HTML"
-		},
-		{
-			value: 40,
-			color: "orange",
-			highlight: "darkorange",
-			label: "CSS"
-		}
-	];
-
-	var chart = new Chart(ctx).Doughnut(data);
-});
-
-var config = {
-    type: 'pie',
-    data: {
-        datasets: [{
-            data: [
-                pAmt,
-                iAmt,
-                pFee
+    var chartData = {
+    labels: [
+        "Error",
+        "Info",
+        "Warning"
+    ],
+    datasets: [
+        {
+            data: 
+            [
+            getError(),
+            getInfo(), 
+            getWarning()
             ],
             backgroundColor: [
-                "#F7464A",
-                "#46BFBD",
-                "#FDB45C"
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56"
             ],
-        }],
-        labels: [
-            "Principal Amount",
-            "Interest Amount",
-            "Processing Fee"
-        ]
-    },
-        options: {
-        responsive: true
-    }
-};
+            hoverBackgroundColor: [
+                "#FF6384",
+                "#36A2EB",
+                "#FFCE56"
+            ]
+        }]
+    };
 
-window.onload = function() {
-    var ctx = document.getElementById("emichart").getContext("2d");
-    window.myPie = new Chart(ctx, config);
-};
+    var chartOptions = {
+        responsive: true,
+        maintainsAspectRation: true
+    };
+
+    window.onload = function() {
+
+        var ctx = document.getElementById("chartCanvas").getContext("2d");
+        window.myDoughnut = new Chart(ctx, {
+            type: 'doughnut',
+            data: chartData,
+            options : chartOptions
+        })
+    };

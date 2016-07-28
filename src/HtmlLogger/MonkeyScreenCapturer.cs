@@ -4,23 +4,25 @@
     using System;
     using System.Drawing.Imaging;
 
+    using HtmlLogger.Utils;
+
     public class MonkeyScreenCapturer : IMonkeyScreenCapturer
     {
         private readonly IScreenCapturer _screenCapturer;
+        private readonly IFileNameGenerator _fileNameGenerator;
 
-        public MonkeyScreenCapturer(IScreenCapturer screenCapturer = null)
+        public MonkeyScreenCapturer(IScreenCapturer screenCapturer, IFileNameGenerator fileNameGenerator)
         {
-            screenCapturer = screenCapturer ?? new ScreenCapturer();
+            Guard.Against.Null(nameof(screenCapturer), screenCapturer);
+            Guard.Against.Null(nameof(fileNameGenerator), fileNameGenerator);
 
             this._screenCapturer = screenCapturer;
+            this._fileNameGenerator = fileNameGenerator;
         }
 
         public string CaptureScreenToFile()
         {
-            var screenShotFileName = DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
-            var screenShotFileNameWithExtension = $"{screenShotFileName}.png";
-
-            var screenShotFilePath = $"screenshot/{screenShotFileNameWithExtension}";
+            var screenShotFilePath = $"screenshot/{this._fileNameGenerator.GetScreenShotName()}";
 
             this._screenCapturer.CaptureScreenToFile($"Template/{screenShotFilePath}", ImageFormat.Png);
 

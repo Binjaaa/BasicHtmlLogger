@@ -46,10 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IFileNameGenerator.cs" />
     <Compile Include="Contracts\IHtmlLogger.cs" />
     <Compile Include="Contracts\IIoHelper.cs" />
     <Compile Include="Contracts\IMonkeyScreenCapturer.cs" />
     <Compile Include="Contracts\IScreenCapturer.cs" />
+    <Compile Include="FileNameGenerator.cs" />
     <Compile Include="IoHelper.cs" />
     <Compile Include="HtmlHelper\HtmlHelper.cs" />
     <Compile Include="HtmlHelper\IHtmlHelper.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="Logger\MonkeyHtmlLogger.cs" />
     <Compile Include="Logger\MonkeyHtmlLoggerBase.cs" />
     <Compile Include="Model\LogCategory.cs" />
+    <Compile Include="Model\LogDirectories.cs" />
     <Compile Include="Model\ReportHtmlStyleItem.cs" />
     <Compile Include="MonkeyScreenCapturer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

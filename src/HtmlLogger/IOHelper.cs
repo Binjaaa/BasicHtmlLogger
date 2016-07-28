@@ -8,12 +8,14 @@
     {
         #region Methods
 
-        public void CreateDirectoryIfNotExists(string directoryPath)
+        public string CreateDirectoryIfNotExists(string directoryPath)
         {
             if (!this.DirectoryExists(directoryPath))
             {
                 Directory.CreateDirectory(directoryPath);
             }
+
+            return directoryPath;
         }
 
         public bool DirectoryExists(string directoryPath)

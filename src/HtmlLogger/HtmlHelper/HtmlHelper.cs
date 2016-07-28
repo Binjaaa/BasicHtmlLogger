@@ -10,19 +10,22 @@
     {
         private static readonly HtmlDocument _html = new HtmlDocument();
         private readonly IIoHelper _ioHelper;
+        private readonly IFileNameGenerator _fileNameGenerator;
 
         private string _templatePath;
         private string _destinationPath;
 
         private const string _templateName = "report.html";
 
-        public HtmlHelper(IIoHelper ioHelper, string templateFullPath, string destinationPath)
+        public HtmlHelper(IIoHelper ioHelper, IFileNameGenerator fileNameGenerator, string templateFullPath, string destinationPath)
         {
             Guard.Against.Null(nameof(ioHelper), ioHelper);
+            Guard.Against.Null(nameof(fileNameGenerator), fileNameGenerator);
             Guard.Against.NullOrEmpty(nameof(templateFullPath), templateFullPath);
             Guard.Against.NullOrEmpty(nameof(destinationPath), destinationPath);
 
             this._ioHelper = ioHelper;
+            this._fileNameGenerator = fileNameGenerator;
             this.TemplatePath = templateFullPath;
 
             this._ioHelper.CreateDirectoryIfNotExists(destinationPath);
@@ -67,10 +70,10 @@
         {
             this.GetTableBodyElement().AppendChild(message);
 
-            var reportName = $"MonkeyReport_{DateTime.Now.ToShortDateString()}.html";
-            var fullReportPath = Path.Combine();
+            var reportName = this._fileNameGenerator.GetLogFileName();
+            var fullReportPath = Path.Combine("Destination", reportName);
 
-            _html.Save();
+            _html.Save(fullReportPath);
         }
 
         private HtmlNode GetTableBodyElement()

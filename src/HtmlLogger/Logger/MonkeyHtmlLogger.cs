@@ -5,7 +5,6 @@
     using HtmlHelper;
     using Model;
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using Utils;
 
@@ -19,41 +18,49 @@
         private const string HtmlRowTemplateFileName = "HtmlRowTemplate.txt";
 
         private readonly string _destinationPath;
+        private readonly string _templateFolderPath;
         private readonly IHtmlHelper _htmlHelper;
         private readonly IIoHelper _ioHelper;
         private readonly IMonkeyScreenCapturer _monkeyScreenCapturer;
-        private readonly string _templateFolderPath;
+        private readonly IFileNameGenerator _fileNameGenerator;
         private int _rowNumber = 1;
 
         #endregion Fields
 
         #region Constructors
 
-        public MonkeyHtmlLogger(string templateFolderPath, string destinationPath, IHtmlHelper htmlHelper = null, IMonkeyScreenCapturer monkeyScreenCapturer = null, IIoHelper ioHelper = null)
+        public MonkeyHtmlLogger(string templateFolderPath, string destinationPath)
         {
             Guard.Against.NullOrEmpty(nameof(templateFolderPath), templateFolderPath);
             Guard.Against.NullOrEmpty(nameof(destinationPath), destinationPath);
 
-            htmlHelper = htmlHelper ?? new HtmlHelper(new IoHelper(), templateFolderPath, destinationPath);
-            monkeyScreenCapturer = monkeyScreenCapturer ?? new MonkeyScreenCapturer();
-            ioHelper = ioHelper ?? new IoHelper();
-
             this._templateFolderPath = templateFolderPath;
             this._destinationPath = destinationPath;
-            this._htmlHelper = htmlHelper;
-            this._monkeyScreenCapturer = monkeyScreenCapturer;
-            this._ioHelper = ioHelper;
 
-            if (!this._ioHelper.DirectoryExists(templateFolderPath))
-            {
-                throw new ArgumentException($"The given {nameof(templateFolderPath)} is not existing: {templateFolderPath}");
-            }
-            this._ioHelper.CreateDirectoryIfNotExists(this._destinationPath);
+            this._ioHelper = new IoHelper();
+            this._fileNameGenerator = new FileNameGenerator(destinationPath);
+            //this._fileNameGenerator.EnsureFolders();
+
+            this._htmlHelper = new HtmlHelper(new IoHelper(), _fileNameGenerator, templateFolderPath, destinationPath);
+            this._monkeyScreenCapturer = new MonkeyScreenCapturer(new ScreenCapturer(), new FileNameGenerator(destinationPath));
+
+            this.InitFolder();
         }
 
         #endregion Constructors
 
         #region Methods
+
+        private LogDirectories InitFolder()
+        {
+            //Ensure "Destination" folder is exists
+           var destinationPath = this._ioHelper.CreateDirectoryIfNotExists(this._destinationPath);
+
+            //Create Current log folder
+           var  this._ioHelper.CreateDirectoryIfNotExists(Path.Combine(this._destinationPath,_fileNameGenerato);
+
+            //Create screenshots folder in log folder
+        }
 
         public override void LogError(string message, bool isScreenShotNeeded)
         {

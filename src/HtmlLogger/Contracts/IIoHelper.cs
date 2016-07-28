@@ -6,7 +6,7 @@
 
         bool DirectoryExists(string directoryPath);
 
-        void CreateDirectoryIfNotExists(string directoryPath);
+        string CreateDirectoryIfNotExists(string directoryPath);
 
         string GetLatestFileName(string directory);
     }

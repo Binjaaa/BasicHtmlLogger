@@ -82,3 +82,7 @@ body {
   height: auto;
   width: 200px;
 }
+
+.fixed-panel {
+  max-height: 280px;
+}
