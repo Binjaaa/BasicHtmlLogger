@@ -46,12 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IFileNameGenerator.cs" />
+    <Compile Include="Contracts\IFileGenerator.cs" />
     <Compile Include="Contracts\IHtmlLogger.cs" />
     <Compile Include="Contracts\IIoHelper.cs" />
     <Compile Include="Contracts\IMonkeyScreenCapturer.cs" />
     <Compile Include="Contracts\IScreenCapturer.cs" />
-    <Compile Include="FileNameGenerator.cs" />
+    <Compile Include="FileGenerator.cs" />
     <Compile Include="IoHelper.cs" />
     <Compile Include="HtmlHelper\HtmlHelper.cs" />
     <Compile Include="HtmlHelper\IHtmlHelper.cs" />

@@ -2,76 +2,38 @@
 {
     using Contracts;
     using HtmlAgilityPack;
-    using System;
-    using System.IO;
     using Utils;
 
     public sealed class HtmlHelper : IHtmlHelper
     {
+        #region Fields
+
         private static readonly HtmlDocument _html = new HtmlDocument();
-        private readonly IIoHelper _ioHelper;
-        private readonly IFileNameGenerator _fileNameGenerator;
 
-        private string _templatePath;
-        private string _destinationPath;
+        private readonly IFileGenerator _fileGenerator;
 
-        private const string _templateName = "report.html";
+        #endregion Fields
 
-        public HtmlHelper(IIoHelper ioHelper, IFileNameGenerator fileNameGenerator, string templateFullPath, string destinationPath)
+        #region Constructors
+
+        public HtmlHelper(IFileGenerator fileGenerator)
         {
-            Guard.Against.Null(nameof(ioHelper), ioHelper);
-            Guard.Against.Null(nameof(fileNameGenerator), fileNameGenerator);
-            Guard.Against.NullOrEmpty(nameof(templateFullPath), templateFullPath);
-            Guard.Against.NullOrEmpty(nameof(destinationPath), destinationPath);
+            Guard.Against.Null(nameof(fileGenerator), fileGenerator);
 
-            this._ioHelper = ioHelper;
-            this._fileNameGenerator = fileNameGenerator;
-            this.TemplatePath = templateFullPath;
+            this._fileGenerator = fileGenerator;
 
-            this._ioHelper.CreateDirectoryIfNotExists(destinationPath);
-            this.InitHtmlDocument(Path.Combine(templateFullPath, _templateName));
+            this.InitHtmlDocument();
         }
 
-        public string TemplatePath
-        {
-            get
-            {
-                return this._templatePath;
-            }
-            private set
-            {
-                if (!this._ioHelper.DirectoryExists(value))
-                {
-                    throw new ArgumentException($"The given {nameof(this.TemplatePath)} is not existing: {value}");
-                }
+        #endregion Constructors
 
-                this._templatePath = value;
-            }
-        }
-
-        public string DestinationPath
-        {
-            get
-            {
-                return this._destinationPath;
-            }
-            private set
-            {
-                if (!this._ioHelper.DirectoryExists(value))
-                {
-                    throw new ArgumentException($"The given {nameof(this.DestinationPath)} is not existing: {value}");
-                }
-
-                this._destinationPath = value;
-            }
-        }
+        #region Methods
 
         public void AddMessageRow(HtmlNode message)
         {
             this.GetTableBodyElement().AppendChild(message);
 
-            var reportName = this._fileNameGenerator.GetLogFileName();
-            var fullReportPath = Path.Combine("Destination", reportName);
+            var fullReportPath = this._fileGenerator.GetLogFilePath();
 
             _html.Save(fullReportPath);
         }
@@ -81,9 +43,13 @@
             return _html.DocumentNode.SelectSingleNode("//tbody");
         }
 
-        private void InitHtmlDocument(string templateFullPath)
+        private void InitHtmlDocument()
         {
-            _html.Load(templateFullPath);
+            var reportTemplatePath = this._fileGenerator.GetTemplateFilePath();
+
+            _html.Load(reportTemplatePath);
         }
+
+        #endregion Methods
     }
 }

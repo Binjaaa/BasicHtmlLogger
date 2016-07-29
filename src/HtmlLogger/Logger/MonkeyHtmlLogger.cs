@@ -4,7 +4,6 @@
     using HtmlAgilityPack;
     using HtmlHelper;
     using Model;
-    using System;
     using System.IO;
     using Utils;
 
@@ -16,13 +15,8 @@
         #region Fields
 
         private const string HtmlRowTemplateFileName = "HtmlRowTemplate.txt";
-
-        private readonly string _destinationPath;
-        private readonly string _templateFolderPath;
         private readonly IHtmlHelper _htmlHelper;
-        private readonly IIoHelper _ioHelper;
         private readonly IMonkeyScreenCapturer _monkeyScreenCapturer;
-        private readonly IFileNameGenerator _fileNameGenerator;
         private int _rowNumber = 1;
 
         #endregion Fields
@@ -34,33 +28,16 @@
             Guard.Against.NullOrEmpty(nameof(templateFolderPath), templateFolderPath);
             Guard.Against.NullOrEmpty(nameof(destinationPath), destinationPath);
 
-            this._templateFolderPath = templateFolderPath;
-            this._destinationPath = destinationPath;
+            var ioHelper = new IoHelper();
+            var fileGenerator = new FileGenerator(templateFolderPath, destinationPath, ioHelper);
 
-            this._ioHelper = new IoHelper();
-            this._fileNameGenerator = new FileNameGenerator(destinationPath);
-            //this._fileNameGenerator.EnsureFolders();
-
-            this._htmlHelper = new HtmlHelper(new IoHelper(), _fileNameGenerator, templateFolderPath, destinationPath);
-            this._monkeyScreenCapturer = new MonkeyScreenCapturer(new ScreenCapturer(), new FileNameGenerator(destinationPath));
-
-            this.InitFolder();
+            this._htmlHelper = new HtmlHelper(fileGenerator);
+            this._monkeyScreenCapturer = new MonkeyScreenCapturer(new ScreenCapturer(), fileGenerator);
         }
 
         #endregion Constructors
 
         #region Methods
-
-        private LogDirectories InitFolder()
-        {
-            //Ensure "Destination" folder is exists
-           var destinationPath = this._ioHelper.CreateDirectoryIfNotExists(this._destinationPath);
-
-            //Create Current log folder
-           var  this._ioHelper.CreateDirectoryIfNotExists(Path.Combine(this._destinationPath,_fileNameGenerato);
-
-            //Create screenshots folder in log folder
-        }
 
         public override void LogError(string message, bool isScreenShotNeeded)
         {

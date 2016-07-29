@@ -1,32 +1,47 @@
 ﻿namespace HtmlLogger
 {
     using HtmlLogger.Contracts;
-    using System;
-    using System.Drawing.Imaging;
-
     using HtmlLogger.Utils;
+    using System.Drawing.Imaging;
+    using System.IO;
 
     public class MonkeyScreenCapturer : IMonkeyScreenCapturer
     {
-        private readonly IScreenCapturer _screenCapturer;
-        private readonly IFileNameGenerator _fileNameGenerator;
+        #region Fields
 
-        public MonkeyScreenCapturer(IScreenCapturer screenCapturer, IFileNameGenerator fileNameGenerator)
+        private readonly IFileGenerator _fileGenerator;
+        private readonly IScreenCapturer _screenCapturer;
+
+        #endregion Fields
+
+        #region Constructors
+
+        public MonkeyScreenCapturer(IScreenCapturer screenCapturer, IFileGenerator fileNameGenerator)
         {
             Guard.Against.Null(nameof(screenCapturer), screenCapturer);
             Guard.Against.Null(nameof(fileNameGenerator), fileNameGenerator);
 
             this._screenCapturer = screenCapturer;
-            this._fileNameGenerator = fileNameGenerator;
+            this._fileGenerator = fileNameGenerator;
         }
+
+        #endregion Constructors
+
+        #region Methods
 
         public string CaptureScreenToFile()
         {
-            var screenShotFilePath = $"screenshot/{this._fileNameGenerator.GetScreenShotName()}";
+            var screenShotFilePath = this._fileGenerator.GetScreenShotFullPath();
 
-            this._screenCapturer.CaptureScreenToFile($"Template/{screenShotFilePath}", ImageFormat.Png);
+            var screenShotFullPath = Path.Combine(
+                this._fileGenerator.GetScreenShotFullPath(),
+                this._fileGenerator.GetScreenShotName());
+
+            this._screenCapturer.CaptureScreenToFile(screenShotFullPath, ImageFormat.Png);
 
             return screenShotFilePath;
         }
+
+        #endregion Methods
     }
 }
