@@ -2,14 +2,17 @@
 {
     public interface IFileGenerator
     {
-        string GetScreenShotName();
-
-        string GetScreenShotFullPath();
+        #region Methods
 
         string GetLogFileName();
 
+        string GetLogFilePath();
+
+        string GetScreenShotFullPath();
+
+        string GetScreenShotName();
         string GetTemplateFilePath();
 
-        string GetLogFilePath();
+        #endregion Methods
     }
 }

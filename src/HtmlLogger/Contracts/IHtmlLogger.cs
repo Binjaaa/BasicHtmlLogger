@@ -2,8 +2,12 @@
 {
     public interface IHtmlLogger
     {
-        void LogInfo(string message, bool isScreenShotNeeded);
+        #region Methods
 
         void LogError(string message, bool isScreenShotNeeded);
+
+        void LogInfo(string message, bool isScreenShotNeeded);
+
+        #endregion Methods
     }
 }

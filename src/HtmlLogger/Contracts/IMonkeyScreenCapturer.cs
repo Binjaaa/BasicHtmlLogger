@@ -1,9 +1,11 @@
 ﻿namespace HtmlLogger.Contracts
 {
-    using System.Drawing.Imaging;
-
     public interface IMonkeyScreenCapturer
     {
+        #region Methods
+
         string CaptureScreenToFile();
+
+        #endregion Methods
     }
 }

@@ -4,20 +4,27 @@
 
     internal class Guard
     {
+        #region Fields
+
         private static Guard _against;
+
+        #endregion Fields
+
+        #region Properties
 
         public static Guard Against
         {
             get
             {
-                if (_against == null)
-                {
-                    _against = new Guard();
-                }
+                _against = _against ?? new Guard();
 
                 return _against;
             }
         }
+
+        #endregion Properties
+
+        #region Methods
 
         public void Null(string name, object value)
         {
@@ -34,5 +41,7 @@
                 throw new ArgumentNullException($"string value is null or empty: {name}");
             }
         }
+
+        #endregion Methods
     }
 }

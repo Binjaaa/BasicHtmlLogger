@@ -6,6 +6,8 @@
 
     public interface IScreenCapturer
     {
+        #region Methods
+
         Image CaptureScreen();
 
         void CaptureScreenToFile(string filename, ImageFormat format);
@@ -15,5 +17,7 @@
         void CaptureWindowToFile(IntPtr handle, string filename, ImageFormat format);
 
         IntPtr GetActiveWindowHandle();
+
+        #endregion Methods
     }
 }

@@ -23,6 +23,7 @@
         private readonly string _screenShotfileNameFormat = "yyyy-MM-dd-mm-hh-ss";
 
         private readonly string _templatePath;
+
         #endregion Fields
 
         #region Constructors
@@ -58,13 +59,14 @@
 
         public string GetLogFilePath()
         {
-            return Path.Combine(_logDirectories.CurrentLogDirectory, GetLogFileName());
+            return Path.Combine(this._logDirectories.CurrentLogDirectory, this.GetLogFileName());
         }
 
         public string GetScreenShotFullPath()
         {
             return this._logDirectories.ScreenshotFolder;
         }
+
         public string GetScreenShotName()
         {
             var screenShotFileName = DateTime.Now.ToString(this._screenShotfileNameFormat);
@@ -75,6 +77,7 @@
         {
             return Path.Combine(this._templatePath, TemplateFileName);
         }
+
         private LogDirectories EnsureFolderStructure(string destinationFolder)
         {
             //Ensure "Destination" folder is exists

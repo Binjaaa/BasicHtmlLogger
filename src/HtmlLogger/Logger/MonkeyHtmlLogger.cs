@@ -1,10 +1,8 @@
 ﻿namespace HtmlLogger.Logger
 {
     using Contracts;
-    using HtmlAgilityPack;
     using HtmlHelper;
     using Model;
-    using System.IO;
     using Utils;
 
     /// <summary>
@@ -14,10 +12,8 @@
     {
         #region Fields
 
-        private const string HtmlRowTemplateFileName = "HtmlRowTemplate.txt";
         private readonly IHtmlHelper _htmlHelper;
-        private readonly IMonkeyScreenCapturer _monkeyScreenCapturer;
-        private int _rowNumber = 1;
+        private readonly INodeCreator _nodeCreator;
 
         #endregion Fields
 
