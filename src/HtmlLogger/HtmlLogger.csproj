@@ -50,6 +50,7 @@
     <Compile Include="Contracts\IHtmlLogger.cs" />
     <Compile Include="Contracts\IIoHelper.cs" />
     <Compile Include="Contracts\IMonkeyScreenCapturer.cs" />
+    <Compile Include="Contracts\INodeCreator.cs" />
     <Compile Include="Contracts\IScreenCapturer.cs" />
     <Compile Include="FileGenerator.cs" />
     <Compile Include="IoHelper.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="Logger\HtmlAttributeHelper.cs" />
     <Compile Include="Logger\MonkeyHtmlLogger.cs" />
     <Compile Include="Logger\MonkeyHtmlLoggerBase.cs" />
+    <Compile Include="Logger\NodeCreator.cs" />
     <Compile Include="Model\LogCategory.cs" />
     <Compile Include="Model\LogDirectories.cs" />
     <Compile Include="Model\ReportHtmlStyleItem.cs" />

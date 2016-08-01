@@ -28,7 +28,9 @@
             var fileGenerator = new FileGenerator(templateFolderPath, destinationPath, ioHelper);
 
             this._htmlHelper = new HtmlHelper(fileGenerator);
-            this._monkeyScreenCapturer = new MonkeyScreenCapturer(new ScreenCapturer(), fileGenerator);
+
+            var monkeyScreenCapturer = new MonkeyScreenCapturer(new ScreenCapturer(), fileGenerator);
+            this._nodeCreator = new NodeCreator(monkeyScreenCapturer);
         }
 
         #endregion Constructors
@@ -52,18 +54,7 @@
 
         protected override void Log(string message, bool isScreenShotNeeded, LogCategory category)
         {
-            var str = File.ReadAllText(HtmlRowTemplateFileName);
-            string screenShotPath = null;
-
-            if (isScreenShotNeeded)
-            {
-                screenShotPath = this._monkeyScreenCapturer.CaptureScreenToFile();
-            }
-
-            var style = HtmlAttributeHelper.GetStyleByCategory(category);
-
-            var filledHtmlText = string.Format(str, this._rowNumber++, style.FirstRowClass, message, screenShotPath, style.SpanText, style.SpanClass);
-            var newNode = HtmlNode.CreateNode(filledHtmlText);
+            var newNode = this._nodeCreator.CreateNode(message, isScreenShotNeeded, category);
 
             this._htmlHelper.AddMessageRow(newNode);
         }

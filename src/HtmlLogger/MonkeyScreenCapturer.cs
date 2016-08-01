@@ -4,6 +4,7 @@
     using HtmlLogger.Utils;
     using System.Drawing.Imaging;
     using System.IO;
+    using System.Linq;
 
     public class MonkeyScreenCapturer : IMonkeyScreenCapturer
     {
@@ -31,15 +32,13 @@
 
         public string CaptureScreenToFile()
         {
-            var screenShotFilePath = this._fileGenerator.GetScreenShotFullPath();
-
             var screenShotFullPath = Path.Combine(
                 this._fileGenerator.GetScreenShotFullPath(),
                 this._fileGenerator.GetScreenShotName());
 
             this._screenCapturer.CaptureScreenToFile(screenShotFullPath, ImageFormat.Png);
 
-            return screenShotFilePath;
+            return Path.Combine(new DirectoryInfo(screenShotFullPath).Parent?.Name, Path.GetFileName(screenShotFullPath));
         }
 
         #endregion Methods
