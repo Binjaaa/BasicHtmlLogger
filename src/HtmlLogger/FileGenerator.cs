@@ -119,7 +119,7 @@
             int sequenceNumber = 1;
             string todayFormat = DateTime.Now.ToString(this._logFolderNameFormat);
 
-            if (lastLogDirInfo != null && !lastLogDirInfo.Name.StartsWith(todayFormat))
+            if (lastLogDirInfo != null && lastLogDirInfo.Name.StartsWith(todayFormat))
             {
                 string[] parts = lastLogDirInfo.Name.Split(FileNameSeparator);
 
