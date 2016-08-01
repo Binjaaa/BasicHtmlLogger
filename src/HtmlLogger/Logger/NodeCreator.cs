@@ -24,16 +24,18 @@
         {
             var template = File.ReadAllText(HtmlRowTemplateFileName);
 
-            string screenShotImgValue = null;
+            string imgHtmlTag = string.Empty;
 
             if (isScreenShotNeeded)
             {
-                screenShotImgValue = this._monkeyScreenCapturer.CaptureScreenToFile();
+                var screenShotImgValue = this._monkeyScreenCapturer.CaptureScreenToFile();
+
+                imgHtmlTag = $"<a href = \"{screenShotImgValue}\" class = \"thumbnail\"><img src = \"{screenShotImgValue}\"></a>";
             }
 
             var style = HtmlAttributeHelper.GetStyleByCategory(logCategory);
 
-            var filledHtmlText = string.Format(template, _rowNumber++, style.FirstRowClass, message, screenShotImgValue, style.SpanText, style.SpanClass);
+            var filledHtmlText = string.Format(template, _rowNumber++, style.FirstRowClass, message, imgHtmlTag, style.SpanText, style.SpanClass);
 
             return HtmlNode.CreateNode(filledHtmlText);
         }
