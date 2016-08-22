@@ -13,6 +13,7 @@
 
         private const char FileNameSeparator = '-';
         private const string TemplateFileName = "report.html";
+        private string _currentSequence;
 
         private readonly string _destinationPath;
         private readonly IIoHelper _ioHelper;
@@ -54,7 +55,7 @@
         {
             var screenShotFileName = DateTime.Now.ToString(this._logfileNameFormat);
 
-            return $"{screenShotFileName}.html";
+            return $"{screenShotFileName}{_currentSequence}.html";
         }
 
         public string GetLogFilePath()
@@ -103,6 +104,8 @@
             var sequence = this.GetSequence();
 
             string maskedSequence = sequence.PadLeft(3, '0').Insert(0, FileNameSeparator.ToString());
+
+            _currentSequence = maskedSequence;
 
             return $"{logFolderName}{maskedSequence}";
         }
