@@ -1,31 +1,12 @@
 ﻿namespace TestConsole
 {
-    using HtmlLogger;
+    using HtmlLogger.Logger;
     using System;
-    using System.Drawing.Imaging;
     using System.IO;
     using System.Reflection;
 
-    using HtmlLogger.Logger;
-
     internal class Program
     {
-        private static void CaptureScreen()
-        {
-            ScreenCapturer sc = new ScreenCapturer();
-
-            // capture entire screen and save it
-            sc.CaptureScreenToFile("temp2.png", ImageFormat.Png);
-        }
-
-        private static void CaptureActualWindow()
-        {
-            ScreenCapturer sc = new ScreenCapturer();
-
-            // capture this window, and save it
-            sc.CaptureWindowToFile(sc.GetActiveWindowHandle(), "temp3.png", ImageFormat.Png);
-        }
-
         public static string AssemblyDirectory
         {
             get
@@ -35,6 +16,11 @@
                 string path = Uri.UnescapeDataString(uri.Path);
                 return Path.GetDirectoryName(path);
             }
+        }
+
+        private static void Main(string[] args)
+        {
+            StartTheFun();
         }
 
         private static void StartTheFun()
@@ -54,11 +40,10 @@
             logger.LogInfo("QA1NO", false);
             logger.LogError("QA2NO", false);
             logger.LogWarning("QA3NO", false);
-        }
 
-        private static void Main(string[] args)
-        {
-            StartTheFun();
+            logger.AppendToRunDetails("foo1", "fooval1");
+            logger.AppendToRunDetails("foo2", "fooval2");
+            logger.AppendToRunDetails("foo3", "fooval3");
         }
     }
 }
