@@ -37,6 +37,13 @@
 
         #region Methods
 
+        public override void AppendToRunDetails(string name, string value)
+        {
+            var detailsNode = this._nodeCreator.CreateDetailsNode(name, value);
+
+            this._htmlHelper.AppendToRunDetailsTable(detailsNode);
+        }
+
         public override void LogError(string message, bool isScreenShotNeeded)
         {
             this.Log(message, isScreenShotNeeded, LogCategory.Danger);
