@@ -7,6 +7,8 @@
     {
         #region Methods
 
+        public abstract void AppendToRunDetails(string propertyName, string propertyValue);
+
         public abstract void LogError(string message, bool isScreenShotNeeded);
 
         public abstract void LogInfo(string message, bool isScreenShotNeeded);
@@ -14,7 +16,6 @@
         public abstract void LogWarning(string message, bool isScreenShotNeeded);
 
         protected abstract void Log(string message, bool isScreenShotNeeded, LogCategory category);
-
         #endregion Methods
     }
 }

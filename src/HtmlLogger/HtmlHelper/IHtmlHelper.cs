@@ -12,6 +12,12 @@
         /// <param name="message"></param>
         void AddMessageRow(HtmlNode message);
 
+        /// <summary>
+        /// Add new row to the @RunDetails tbody element
+        /// </summary>
+        /// <param name="runDetailsNode"></param>
+        void AppendToRunDetailsTable(HtmlNode runDetailsNode);
+
         #endregion Methods
     }
 }
